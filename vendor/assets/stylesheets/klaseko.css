@@ -1,0 +1,963 @@
+/* Klaseko CSS Framework
+ * Created by Klaseko on 11/05/14
+ */
+
+/* Fonts & Typography
+ * https://www.google.com/fonts
+ *
+ * #18727A - dark blue
+ * #019997 - teal
+ * #2ABBB3 - light teal
+ * #3093C4 - corporate blue
+ * #54ABD9 - light blue (logo)
+ * #3994C3 - medium blue (logo)
+ * #2981B0 - darker blue (logo)
+ * #FFF100 - yellow
+ * #F6921E - orange
+*/
+
+/* Roboto Thin, Light, Normal, Medium, Bold, Italic (all) */
+@import url(https://fonts.googleapis.com/css?family=Roboto:500,400italic,100,700italic,300,700,500italic,100italic,300italic,400);
+
+/* Oswald Light, Normal, Bold */
+@import url(https://fonts.googleapis.com/css?family=Oswald:400,700,300);
+
+html, body {
+  font-family: 'Roboto', sans-serif;
+  font-size:14px;
+}
+
+/* default global header font is Oswald */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300;
+  margin-top:.5em;
+  margin-bottom: 0;
+}
+
+/* default global font is Roboto */
+p, u, input, label, textarea, button, select, ul, li, table, th, tr, td {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.428;
+}
+
+span {
+  color: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+li {
+  margin-left: 4% !important;
+}
+
+a {
+  text-decoration: none;
+  color:#2ABBB3;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+a:hover {
+  border-bottom: 1px dashed #019997;
+  text-decoration: none;
+  color: #019997;
+}
+
+a:active {
+  color:#019997;
+}
+
+/* override default font */
+.font-roboto {
+  font-family: 'Roboto', sans-serif !important;
+}
+
+.font-oswald {
+  font-family: 'Oswald', sans-serif !important
+}
+
+h1, .h1 {
+  font-size: 36px !important;
+}
+
+h2, .h2 {
+  font-size: 30px !important;
+}
+
+h3, .h3 {
+  font-size: 24px !important;
+}
+
+h4, .h4 {
+  font-size: 18px !important;
+}
+
+h5, .h5 {
+  font-size: 14px !important;
+}
+
+h6, .h6 {
+  font-size: 12px !important;
+}
+
+small, .small {
+  color:rgb(120,120,120);
+  font-family: 'Roboto';
+}
+
+mark, .mark {
+  background:#2ABBB3;
+}
+
+em {
+  font-style: italic;
+}
+
+strong, .strong {
+  font-weight: 700;
+}
+
+code {
+  font-family: 'Consolas', 'Source Code Pro';
+  font-size: 14px;
+  background: #fff4f8;
+  padding:2;
+  margin:2;
+  color:#d42e64;
+  border-radius: 2;
+}
+
+svg {
+  height:100% !important;
+  float:left;
+}
+
+.instructions {
+  font-size: 18px !important;
+  font-weight: 300;
+}
+
+.lead {
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-size:18px;
+  font-weight: 300;
+}
+
+.no-margin {
+  margin:0 !important;
+}
+
+.no-margin-top {
+  margin-top:0 !important;
+}
+
+.no-padding {
+  padding:0 !important;
+}
+
+.no-padding-left {
+  padding-left: 0 !important;
+}
+
+.no-padding-right {
+  padding-right: 0 !important;
+}
+
+.no-padding-top {
+  padding-top: 0 !important;
+}
+
+.no-padding-bottom {
+  padding-bottom:0 !important;
+}
+
+.vertical-center {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* font colors */
+.color-white {
+  color:white !important;
+}
+
+.color-dark-blue {
+  color:#18727A !important;
+}
+
+.color-teal {
+  color:#019997 !important;
+}
+
+.color-light-teal {
+  color:#2ABBB3 !important;
+}
+
+.color-corporate-blue {
+  color:#3093C4 !important;
+}
+
+.color-yellow {
+  color:#FFF100 !important;
+}
+
+.color-orange {
+  color:#F6921E !important;
+}
+
+.color-red {
+  color:red !important;
+}
+
+.color-black {
+  color:black !important;
+}
+
+a.color-white:hover {
+  color:rgb(230,230,230);
+  border-bottom: 1px dashed rgb(240,240,240);
+}
+
+
+/* text alignment classes, default align left */
+.text-left {
+  text-align: left !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-justify {
+  text-align: justify !important;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-lowercase {
+  text-transform: lowercase;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+.font-thin {
+  font-weight: 100 !important;
+}
+
+.font-light {
+  font-weight: 300 !important;
+}
+
+.font-medium {
+  font-weight: 500 !important;
+}
+
+.font-bold {
+  font-weight: 900 !important;
+}
+
+/* Containers + responsive grids */
+.container {
+  width:96%;
+  padding:1% 2%;
+  float:left;
+  max-width: 1440px;
+}
+
+/* place columns in here, can also be stand alone */
+.row {
+  width:100%;
+  float:left;
+}
+
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+  float:left;
+}
+
+.col-12 {
+  width:98%;
+  padding: 1%;
+}
+
+.col-11 {
+  width:89.666667%;
+  padding: 1%;
+}
+
+.col-10 {
+  width:81.333333%;
+  padding: 1%;
+}
+
+.col-9 {
+  width:73%;
+  padding: 1%;
+}
+
+.col-8 {
+  width:64.666667%;
+  padding: 1%;
+}
+
+.col-7 {
+  width:56.333333%;
+  padding: 1%;
+}
+
+.col-6 {
+  width:48%;
+  padding: 1%;
+}
+
+.col-5 {
+  width:39.666667%;
+  padding: 1%;
+}
+
+.col-4 {
+  width:31.333333%;
+  padding: 1%;
+}
+
+.col-3 {
+  width:23%;
+  padding: 1%;
+}
+
+.col-2 {
+  width:14.666667%;
+  padding: 1%;
+}
+
+.col-1 {
+  width:6.333333%;
+  padding: 1%;
+}
+
+.clear {
+  width:100%;
+  float:left;
+}
+
+
+.clear-10 {
+  width:100%;
+  height:10px;
+  float:left;
+}
+
+.clear-20 {
+  width:100%;
+  height:20px;
+  float:left;
+}
+
+.clear-50 {
+  width:100%;
+  height:50px;
+  float:left;
+}
+
+.clear-100 {
+  width:100%;
+  height:100px;
+  float:left;
+}
+
+.clear-2p {
+  width:100%;
+  height:2%;
+}
+
+.clear-line {
+  width:100%;
+  height:1px;
+  float:left;
+  background:rgb(210,210,210);
+}
+
+
+.no-desktop {
+  display:none !important;
+}
+
+.no-mobile {
+  display: block;
+}
+
+
+/* easy float classes */
+.float-right {
+  float:right !important;
+}
+
+.float-left {
+  float:left !important;
+}
+
+.float-center {
+  float: none;
+  margin: auto;
+}
+
+.full-width {
+  width:100% !important;
+}
+
+/* div background classes */
+.bg-dark-blue {
+  background:#18727A !important;
+}
+
+.bg-teal {
+  background:#019997 !important;
+}
+
+.bg-light-teal {
+  background:#2ABBB3 !important;
+}
+
+.bg-corporate-blue {
+  background:#3093C4 !important;
+}
+
+.bg-yellow {
+  background:#FFF100 !important;
+}
+
+.bg-orange {
+  background:#F38630 !important;
+}
+
+.bg-grey-240 {
+  background:rgb(240,240,240);
+}
+
+.bg-grey-230 {
+  background:rgb(230,230,230);
+}
+
+.bg-white {
+  background:white !important;
+}
+
+.no-border {
+  border:0 !important;
+}
+
+.no-border-radius {
+  border-radius: 0 !important;
+}
+
+.margin-left-10 {
+  margin-left: 10px;
+}
+
+.margin-right-10 {
+  margin-right: 10px;
+}
+
+.box {
+  width:100%;
+  float:left;
+  border-top-right-radius: 7px;
+  border-top-left-radius: 7px;
+  margin:2% auto;
+}
+
+.box-header, .box-header-gray {
+  width:96%;
+  padding: 5px 2%;
+  border-top-right-radius: 7px;
+  border-top-left-radius: 7px;
+  float:left;
+  font-family: 'Roboto';
+  font-size: 14px;
+}
+
+.box-body, .box-body-gray {
+  width:96%;
+  padding:2%;
+  float:left;
+  background:white;
+}
+
+.box-header {
+  background:#019997;
+  color:white;
+}
+
+.box-header-gray {
+  background:rgb(230,230,230);
+}
+
+.box-header, .box-body {
+  border:1px solid #019997;
+}
+
+.box-header-gray, .box-body-gray {
+  border:1px solid rgb(230,230,230);
+}
+
+.msg-warning {
+  color: orange;
+}
+
+.msg-alert {
+  color: red;
+}
+
+.msg-success {
+  color: green;
+}
+
+
+/* Form Input */
+label {
+  width:94%;
+  margin:3% 0 1% 0;
+  float:left;
+  font-weight: 500;
+}
+
+input, textarea, select {
+  width:96%;
+  float:left;
+  margin:1% 0 3% 0;
+  padding:7px 2%;
+  border:1px solid rgb(230,230,230);
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+select {
+  width:100%;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: 0;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(42, 187, 179, 0.55);
+  -moz-box-shadow:    0px 0px 10px 0px rgba(42, 187, 179, 0.55);
+  box-shadow:         0px 0px 10px 0px rgba(42, 187, 179, 0.55);
+}
+
+input[type="checkbox"], input[type="radio"] {
+  padding:0;
+  border:1px;
+  width:auto;
+  margin:3px 5px;
+}
+
+input[type="radio"]:focus {
+  outline: 0;
+  -webkit-box-shadow: none;
+  -moz-box-shadow:    none;
+  box-shadow:         none;
+}
+
+.disabled:hover {
+  cursor:not-allowed;
+}
+
+
+
+/* tables */
+.table-container {
+  width:100%;
+  overflow-y: auto;
+  height:auto;
+  margin-bottom: 2%;
+}
+
+table.table {
+  border-spacing: 0;
+  width:100%;
+}
+
+th, td {
+  padding:7px;
+  border-bottom: 1px solid rgb(210, 210, 210);
+  margin-left: 50px;
+}
+
+th {
+  font-weight: 500;
+  text-align: left;
+}
+
+td {
+
+}
+
+
+/* buttons! */
+button, .button {
+  background: #2ABBB3;
+  float:left;
+  margin: 1% 0 3% 0;
+  padding:7px;
+  border:1px solid #2ABBB3;
+  border-radius: 5px;
+  font-size: 14px;
+  color:white;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #019997;
+}
+
+button:active {
+  background: #18727A;
+}
+
+button.active {
+  background: #18727A;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(42, 187, 179, 0.75);
+  -moz-box-shadow:    0px 0px 10px 0px rgba(42, 187, 179, 0.75);
+  box-shadow:         0px 0px 10px 0px rgba(42, 187, 179, 0.75);
+
+}
+
+button:focus {
+  outline: 0;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(42, 187, 179, 0.75);
+  -moz-box-shadow:    0px 0px 10px 0px rgba(42, 187, 179, 0.75);
+  box-shadow:         0px 0px 10px 0px rgba(42, 187, 179, 0.75);
+
+}
+
+button[disabled],
+button[disabled]:hover,
+button[disabled]:active
+{
+    background: #ccc;
+    border-color: #ddd;
+    cursor:not-allowed;
+}
+
+.button-white {
+  background:white;
+  border:1px solid rgb(230,230,230);
+  color:inherit;
+}
+
+.button-white:hover {
+  background:rgb(245,245,245);
+}
+
+.button-white:active {
+  background:rgb(235,235,235);
+}
+
+.button-white:focus {
+  outline: 0;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(200,200,200, 0.75);
+  -moz-box-shadow:    0px 0px 10px 0px rgba(200,200,200, 0.75);
+  box-shadow:         0px 0px 10px 0px rgba(200,200,200, 0.75);
+}
+
+.button-lime {
+  background:#8BC540;
+  border:1px solid #79b032;
+  color:white;
+}
+
+.button-lime:hover {
+  background: #79b032;
+}
+
+.button-lime:active {
+  background:#6ca242;
+}
+
+.button-lime.active {
+  background:#6ca242;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(139,197,64, 0.75);
+  -moz-box-shadow:    0px 0px 10px 0px rgba(139,197,64, 0.75);
+  box-shadow:         0px 0px 10px 0px rgba(139,197,64, 0.75);
+}
+
+.button-lime:focus {
+  outline: 0;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(139,197,64, 0.75);
+  -moz-box-shadow:    0px 0px 10px 0px rgba(139,197,64, 0.75);
+  box-shadow:         0px 0px 10px 0px rgba(139,197,64, 0.75);
+}
+
+.button-orange {
+  background:#F6921E;
+  border:1px solid #f08e1c;
+  color:white;
+}
+
+.button-orange:hover {
+  background: #e78717;
+}
+
+.button-orange:active {
+  background:#e08113;
+}
+
+.button-orange:focus {
+  outline: 0;
+  -webkit-box-shadow: 0px 0px 10px 0px #f08e1c;
+  -moz-box-shadow:    0px 0px 10px 0px #f08e1c;
+  box-shadow:         0px 0px 10px 0px #f08e1c;
+}
+
+/* THANK YOU https://github.com/kylefox/jquery-modal */
+.modal {
+  display: none;
+  max-width: 600px;
+  max-height:90%;
+  overflow: auto;
+  background: #fff;
+  padding: 15px 30px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -o-border-radius: 8px;
+  -ms-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 0 10px #000;
+  -moz-box-shadow: 0 0 10px #000;
+  -o-box-shadow: 0 0 10px #000;
+  -ms-box-shadow: 0 0 10px #000;
+  box-shadow: 0 0 10px #000;
+}
+
+.modal a.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color:#2981B0;
+  width: 18px;
+  line-height: 1.3;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.modal a.close-modal:hover {
+  border-bottom: 0;
+  background: #3994C3;
+  color: white;
+  width: 18px;
+  line-height: 1.3;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.modal-spinner {
+  display: none;
+  width: 64px;
+  height: 64px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-right: -32px;
+  margin-top: -32px;
+  background: url(spinner.gif) #111 no-repeat center center;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -o-border-radius: 8px;
+  -ms-border-radius: 8px;
+  border-radius: 8px;
+}
+
+.modal-div {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .col-12.no-collapse {
+    width:94%;
+  }
+
+  .col-11.no-collapse {
+    width:89.666667%;
+  }
+
+  .col-10.no-collapse {
+    width:81.333333%;
+  }
+
+  .col-9.no-collapse {
+    width:73%;
+  }
+
+  .col-8.no-collapse {
+    width:64.666667%;
+  }
+
+  .col-7.no-collapse {
+    width:56.333333%;
+  }
+
+  .col-6.no-collapse {
+    width:48%;
+  }
+
+  .col-5.no-collapse {
+    width:39.666667%;
+  }
+
+  .col-4.no-collapse {
+    width:31.333333%;
+  }
+
+  .col-4-date-select.no-collapse {
+    width:31.333333%;
+  }
+
+  .col-3.no-collapse {
+    width:23%;
+  }
+
+  .col-2.no-collapse {
+    width:14.666667%;
+  }
+
+  .col-1.no-collapse {
+    width:6.333333%;
+  }
+
+
+  .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+    width:98%;
+    padding:1%
+  }
+
+  input, textarea, select {
+    margin:0;
+  }
+
+  select {
+    width:100%;
+  }
+
+  table.table {
+    width:auto;
+  }
+
+  th, td {
+    padding:7px;
+    min-width: 120px;
+    padding-right: 20px;
+    border-bottom: 1px solid rgb(210, 210, 210);
+  }
+
+  .no-margin {
+    margin:auto;
+  }
+
+  .no-desktop {
+    display: block;
+  }
+
+  .no-mobile {
+    display: none !important;
+  }
+
+  .box {
+    margin:4% auto;
+  }
+
+  .box-header {
+    margin:0;
+    width:96%;
+    padding: 2% !important;
+  }
+
+  .box-body {
+    width:92%;
+    padding:4% !important;
+  }
+
+  .modal {
+    max-width: 80% !important;
+    max-height:90% !important;
+  }
+
+  .display-gt-767 {
+    display: none;
+  }
+
+  .display-lt-767 {
+    display: block;
+  }
+}
+
+
+@media (min-width: 768px) {
+  .display-gt-767 {
+    display: block;
+  }
+
+  /*if greater than 768, do not display elements tagged with display-lt-767*/
+  .display-lt-767 {
+    display: none;
+  }
+}
+
+@media print {
+  nav,
+  header,
+  footer,
+  .box-feedback {
+    display: none;
+  }
+
+  .no-print {
+    display: none;
+  }
+}
+
+.container-flex {
+  float:left;
+  display:flex;
+  width:100%;
+}
+
+.col-flex {
+  margin:auto;
+}
+
+.banner-image {
+  background-color: #019997;
+  background-size:cover;
+}
+
+.angular-google-map-container { height: 400px; }
+
+.stop-scrolling {
+  height: 100%;
+  overflow: hidden;
+}
+
+label.error {
+  display: block;
+  margin: 0px;
+  color: orange;
+}
+
+.border-bottom {
+  border-bottom: 1px solid rgb(210, 210, 210);
+}
+
+.border-bottom:last-of-type {
+  border-bottom: 0px
+}

@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  total: 9.99
+  description: MyString
+  curreny: MyString
+  urls: 
+  client_id: 1
+  ref_no: MyString
+  title: MyString
+  items: 
+  email: MyString
+  info: 
+
+two:
+  total: 9.99
+  description: MyString
+  curreny: MyString
+  urls: 
+  client_id: 1
+  ref_no: MyString
+  title: MyString
+  items: 
+  email: MyString
+  info: 
