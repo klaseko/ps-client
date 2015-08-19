@@ -10,3 +10,6 @@ development:
  <<: *default
  database: <%= ENV['PAYMENTS_CLIENT_DB_NAME'] %>
  host: <%= ENV['PAYMENTS_CLIENT_DB_HOST'] %>
+
+production:
+ <<: *default
