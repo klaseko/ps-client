@@ -81,5 +81,5 @@ Rails.application.configure do
   config.client_secret = ENV['PS_CLIENT_SECRET']
   config.ps_url = ENV['PS_URL']
 
-  config.action_dispatch.show_exceptions = true
+  config.action_dispatch.show_exceptions = ENV['SHOW_EXEPTIONS']
 end
