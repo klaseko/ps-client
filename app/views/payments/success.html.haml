@@ -1,0 +1,16 @@
+.container
+  %h2.no-margin School University
+.clear-line
+.container
+  .col-6
+    %h3 Success!
+    %p
+      %strong Transaction Ref No:
+      = @payment.ref_no
+    %p
+      %strong Title:
+      = @payment.title
+    %p
+      %strong Total:
+      = @payment.total
+

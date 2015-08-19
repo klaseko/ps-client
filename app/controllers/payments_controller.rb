@@ -10,12 +10,19 @@ class PaymentsController < ApplicationController
   end
 
   def post
+    # parsed_params = JSON.parse(payment_params.to_s)
     @payment = Payment.create payment_params
 
-    if @payment.save
+    if @payment.save!
       transaction_token = get_transaction_token
 
       redirect_to Rails.application.config.ps_url + "/payment?t=#{transaction_token}"
+    end
+  end
+
+  def callback
+    if @payment = Payment.find_by_ref_no(params['ref_no'])
+      render :success
     end
   end
 
