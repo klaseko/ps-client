@@ -15,7 +15,6 @@ class PaymentsController < ApplicationController
 
     if @payment.save!
       transaction_token = get_transaction_token
-
       redirect_to Rails.application.config.ps_url + "/payment?t=#{transaction_token}"
     end
   end
@@ -39,7 +38,6 @@ class PaymentsController < ApplicationController
           req.headers['Client-Secret'] = Rails.application.config.client_secret
         end
       @access_token = JSON.parse(access_token_request.body)['access_token']
-
       @payment = @payment.attributes
       valid_transaction_string =
         @payment["title"] +
@@ -50,13 +48,13 @@ class PaymentsController < ApplicationController
         @payment["ref_no"] +
         @payment["email"] +
         @payment["mobile_no"] +
+        @payment["client_tracking_id"] +
         Rails.application.config.client_secret
 
       signature = Digest::SHA2.new(256)
       signature << valid_transaction_string
       @payment["signature"] = BCrypt::Password.create(signature)
       @payment["signature_string"] = valid_transaction_string
-
       transaction_post_request =
         http_adapter.post do |req|
           req.url                        '/payment'
@@ -65,7 +63,6 @@ class PaymentsController < ApplicationController
           req.headers['Client-Key']    = Rails.application.config.client_key
           req.body                     = @payment.to_json
         end
-
       transaction_token = JSON.parse(transaction_post_request.body)['transaction_token']
     end
 

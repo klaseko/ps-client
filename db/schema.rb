@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811090303) do
+ActiveRecord::Schema.define(version: 20151002012531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20150811090303) do
     t.string   "client_secret"
     t.json     "info",          default: [],              array: true
     t.json     "items",         default: [],              array: true
+    t.string   "client_tracking_id"
   end
 
 end

@@ -3,9 +3,9 @@ class CreatePayments < ActiveRecord::Migration
     create_table :payments do |t|
       t.decimal :total
       t.string :description
-      t.string :curreny
+      t.string :currency
       t.json :urls
-      t.integer :client_id
+      t.integer :client_key
       t.string :ref_no
       t.string :title
       t.json :items
