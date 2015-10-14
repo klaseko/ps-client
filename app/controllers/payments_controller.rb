@@ -14,8 +14,14 @@ class PaymentsController < ApplicationController
     @payment = Payment.create payment_params
 
     if @payment.save!
-      transaction_token = get_transaction_token
-      redirect_to Rails.application.config.ps_url + "/payment?t=#{transaction_token}"
+      response = get_transaction_token
+
+      if response['error']
+        render json: response
+      elsif response['token']
+        redirect_to Rails.application.config.ps_url + "/payment?t=#{response['token']}"
+      end
+
     end
   end
 
@@ -23,6 +29,7 @@ class PaymentsController < ApplicationController
     if @payment = Payment.find_by_ref_no(params['ref_no'])
       render :success
     end
+
   end
 
   private
@@ -63,7 +70,7 @@ class PaymentsController < ApplicationController
           req.headers['Client-Key']    = Rails.application.config.client_key
           req.body                     = @payment.to_json
         end
-      transaction_token = JSON.parse(transaction_post_request.body)['transaction_token']
+      JSON.parse(transaction_post_request.body)
     end
 
     def http_adapter
