@@ -37,9 +37,9 @@ Rails.application.configure do
   config.assets.raise_runtime_errors = true
 
   # Raises error for missing translations
-  # config.action_view.raise_on_missing_translations = true
+  # config.action_view.raise_on_missing_tranalations = true
 
-  config.client_key = ENV['PS_CLIENT_KEY']
-  config.client_secret = ENV['PS_CLIENT_SECRET']
-  config.ps_url = 'http://localhost:3000/'
+  config.client_key = 'd8eef0f1d2a098a80c678dba0abe037c93bddc4ba326438e'#ENV['PS_CLIENT_KEY']
+  config.client_secret = '51561b78d01a2c3ef18ed7735924681bbbdc5d0a968e507e'#ENV['PS_CLIENT_SECRET']
+  config.ps_url = 'https://pay-dev.klaseko.com'
 end

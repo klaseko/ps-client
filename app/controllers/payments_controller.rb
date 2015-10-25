@@ -18,8 +18,8 @@ class PaymentsController < ApplicationController
 
       if response['error']
         render json: response
-      elsif response['token']
-        redirect_to Rails.application.config.ps_url + "/payment?t=#{response['token']}"
+      elsif response['transaction_token']
+        redirect_to Rails.application.config.ps_url + "/payment?t=#{response['transaction_token']}"
       end
 
     end
