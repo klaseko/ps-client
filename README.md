@@ -163,7 +163,7 @@ The signature is a mechanism which will ensure the authenticity of each request.
 
 Algorithm:
 ```ruby
-transaction_string = title + email + currency + price + description + ref_no + email + mobile_no + client_tracking_id + client_secret
+transaction_string = title + email + currency + total + description + ref_no + email + mobile_no + client_tracking_id + client_secret
 # => "EnrollmentPHP4510.50New payment from customer@client.comH56uBxcustomer@client.com09123456891231131-A-231f17bac0022c920497604033bb97aa09477"
 transaction_hash = Digest::SHA2.new(256)
 transaction_hash << transaction_string
