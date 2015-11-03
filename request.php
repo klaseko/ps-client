@@ -44,7 +44,7 @@
   $response = $client->doPost($json_data,$token_auth);
   
   print_r($response);
-  $redirect_url = 'https://pay-dev.klaseko.com/payment?t='.$response->transaction_token; 
+  $redirect_url = 'https://pay-test.klaseko.com/payment?t='.$response->transaction_token; 
   # echo $redirect_url;
   header("Location: $redirect_url");
   # redirect('https://pay-dev.klaseko.com/payments?t="{$response}"');
