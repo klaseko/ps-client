@@ -1,18 +1,18 @@
 <?php
  class ClientAPI {
     
-    public $client_key = 'd737d9036f0feaf04d69fd9524ca511316173bf0e491f741';
-    public $secret_key = '75ccf1a9aaff6844daaf8c7d103c3b7bc2104d870cdd268e';
+    public $client_key = '85f102e0bde93549acab1288d5bf220a3e566f9010a5cc8b';
+    public $client_secret = 'b4f77e2ae76b9cd84cecbcbf2ce418208b3b977796075515';
     private function doAuthenticate(){
         $cURL = curl_init();
 
-        curl_setopt($cURL, CURLOPT_URL, 'https://pay-dev.klaseko.com/oauth2/token');
+        curl_setopt($cURL, CURLOPT_URL, 'https://pay-test.klaseko.com/oauth2/token');
         curl_setopt($cURL, CURLOPT_HTTPGET, true);
         $headers = array();
         $headers[] = 'Content-Type: application/json';
         $headers[] = 'Accept: application/json';
-        $headers[] = 'Client-Key: d737d9036f0feaf04d69fd9524ca511316173bf0e491f741';
-        $headers[] = 'Client-Secret: 75ccf1a9aaff6844daaf8c7d103c3b7bc2104d870cdd268e';
+        $headers[] = 'Client-Key:'.$this->client_key;
+        $headers[] = 'Client-Secret:'.$this->client_secret;
         $headers[] = 'Redirect-URI: klaseko.com';
 
         curl_setopt($cURL, CURLOPT_HTTPHEADER, $headers);
@@ -41,7 +41,7 @@
     
     public  function doPost($data,$token_auth){
        $cURL = curl_init();
-       curl_setopt($cURL, CURLOPT_URL, 'https://pay-dev.klaseko.com/payment');
+       curl_setopt($cURL, CURLOPT_URL, 'https://pay-test.klaseko.com/payment');
        //curl_setopt($cURL, CURLOPT_HTTPGET, true);
        curl_setopt($cURL, CURLOPT_CUSTOMREQUEST, 'POST');
        curl_setopt($cURL, CURLOPT_POSTFIELDS, $data);
