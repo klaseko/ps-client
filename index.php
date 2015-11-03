@@ -58,6 +58,10 @@
     <label>Description : </label>
     <input type='text' name='third_item_description' size='30px'/>
   </div>
+  <div style='float:right;'>
+    <label>Client Tracking ID</label>
+    <input type='text' name='client_tracking_id' size='30px'/>
+  </div>
   </fieldset>
   <br/>
   <div style='float:right;'>
