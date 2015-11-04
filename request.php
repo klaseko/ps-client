@@ -34,7 +34,7 @@
   $data['info'][2]['value'] = $_POST['third_item_description'];
   $data['client_tracking_id'] = $_POSt['client_tracking_id'];
   
-  $signature = $client->doHash($_POST['title'].$_POST['email'].'PHP'.$data['total'].$_POST['description'].$data['ref_no'].$_POST['email'].$_POST['mobile_no'].$client->secret_key); 
+  $signature = $client->doHash($_POST['title'].$_POST['email'].'PHP'.$data['total'].$_POST['description'].$data['ref_no'].$_POST['email'].$_POST['mobile_no'].$data['client_tracking_id'].$client->secret_key); 
   
   
   $data['signature'] = $signature;
