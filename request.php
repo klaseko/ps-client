@@ -1,53 +1,35 @@
 <?php
   require_once('client.php');
-  
-  $client = new ClientAPI; 
-  
-  # Authentication
-  $data = $client->getClientKeys(); 
-  $token_auth  = $data->access_token;
-  $client_secret = $data->refresh_token;
- 
-  # Information
-  $data = array();
-  $data['client_key'] = $client->client_key;
-  $data['title'] = $_POST['title'];
-  $data['email'] = $_POST['email'];
-  $data['description'] = $_POST['description'];
-  $data['currency'] = 'PHP';
-  $data['total']=$_POST['first_item_price']+$_POST['second_item_price']+$_POST['third_item_price'];
-  $data['urls']['callback'] = 'https://client/callback/url';
-  $data['urls']['postback'] = 'https://client/postback/iurl';
-  $data['ref_no'] = substr(crypt($data['client_key']),6);
-  $data['mobile_no'] = $_POST['mobile_no'];
-  $data['items'][0]['name'] = $_POST['first_item_name'];
-  $data['items'][0]['price'] = $_POST['first_item_price'];
-  $data['items'][1]['name'] = $_POST['second_item_name'];
-  $data['items'][1]['price'] = $_POST['second_item_price'];
-  $data['items'][2]['name'] = $_POST['third_item_name'];
-  $data['items'][2]['price'] = $_POST['third_item_price'];
-  $data['info'][0]['title'] = 'Information I';
-  $data['info'][0]['value'] = $_POST['first_item_description'];
-  $data['info'][1]['title'] = 'Information II';
-  $data['info'][1]['value'] = $_POST['second_item_description'];
-  $data['info'][2]['title'] = 'Information III';
-  $data['info'][2]['value'] = $_POST['third_item_description'];
-  $data['client_tracking_id'] = $_POSt['client_tracking_id'];
-  
-  $signature = $client->doHash($_POST['title'].$_POST['email'].'PHP'.$data['total'].$_POST['description'].$data['ref_no'].$_POST['email'].$_POST['mobile_no'].$data['client_tracking_id'].$client->secret_key); 
-  
-  
-  $data['signature'] = $signature;
- 
-  $json_data = json_encode($data, JSON_UNESCAPED_SLASHES );
- 
-  $response = $client->doPost($json_data,$token_auth);
-  
-  print_r($response);
-  $redirect_url = 'https://pay-test.klaseko.com/payment?t='.$response->transaction_token; 
-  # echo $redirect_url;
+
+  # Obtaining a client key and client secret
+  # Contact Klaseko to get client_key and client_secret
+  $client = new ClientAPI('a74f5911d41465783132d253071bb7d9e3643cae9602dc14', '41dc1a371688b72594b7bf980981edcc03641896d19b7f38');
+
+  $payload = array(
+    "client_key"          => $client->client_key,
+    "title"               => $_POST['title'],
+    "email"               => $_POST['email'],
+    "currency"            => $_POST['currency'],
+    "total"               => $_POST['total'],
+    "description"         => $_POST['description'],
+    "urls"                => $_POST['urls'],
+    "ref_no"              => strtoupper($client->getRefno()),
+    "mobile_no"           => $_POST['mobile_no'],
+    "client_tracking_id"  => $_POST['client_tracking_id'],
+    "items"               => $_POST['items'],
+    "info"                => $_POST['info'],
+    "urls"                => $_POST['urls']
+  );
+
+  # Generating the payment signature
+  # https://github.com/klaseko/ps-client#generating-the-payment-signature
+  $signature_string     = $payload['title'] . $payload['email'] . $payload['currency'] . $payload['total'] . $payload['description'] . $payload['ref_no'] . $payload['email'] . $payload['mobile_no'] . $payload['client_tracking_id'] . $client->client_secret;
+  $hashed_string        = hash('sha256', $signature_string);
+  $crypted_signature    = password_hash($hashed_string, PASSWORD_BCRYPT);
+  $payload['signature'] = $crypted_signature;
+
+  $token = $client->getTransactionToken(json_encode($payload));
+
+  $redirect_url = 'https://pay-dev.klaseko.com/payment?t=' . $token;
   header("Location: $redirect_url");
-  # redirect('https://pay-dev.klaseko.com/payments?t="{$response}"');
-  # header("Location: $response"); 
-  #header("Location: https://pay-dev.klaseko.com/payment?t=$response");
 ?>

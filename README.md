@@ -85,11 +85,11 @@ To initiate payment, submit a POST request to the PS containing the inbound para
 
 #### Headers
 
-Header         | Value
----------------|--------------------------
-`Content-Type` | application/json
-`Access-Token` | Bearer ZdcnVOYstURZdJWBMZ8mem8tkfl7fM7L
-`Client-Key`   | ee721c8738a0e26611dd70e910623fb808cb3a28a325d9Cf
+Header          | Value
+----------------|--------------------------
+`Content-Type`  | application/json
+`Authorization` | Bearer ZdcnVOYstURZdJWBMZ8mem8tkfl7fM7L
+`Client-Key`    | ee721c8738a0e26611dd70e910623fb808cb3a28a325d9Cf
 
 #### Inbound Parameters:
 

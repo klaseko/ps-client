@@ -1,64 +1,71 @@
 <?php
- class ClientAPI {
-    
-    public $client_key = '85f102e0bde93549acab1288d5bf220a3e566f9010a5cc8b';
-    public $client_secret = 'b4f77e2ae76b9cd84cecbcbf2ce418208b3b977796075515';
-    private function doAuthenticate(){
-        $cURL = curl_init();
+  class ClientAPI {
 
-        curl_setopt($cURL, CURLOPT_URL, 'https://pay-test.klaseko.com/oauth2/token');
-        curl_setopt($cURL, CURLOPT_HTTPGET, true);
-        $headers = array();
-        $headers[] = 'Content-Type: application/json';
-        $headers[] = 'Accept: application/json';
-        $headers[] = 'Client-Key:'.$this->client_key;
-        $headers[] = 'Client-Secret:'.$this->client_secret;
-        $headers[] = 'Redirect-URI: klaseko.com';
+    public $client_key = '';
+    public $client_secret = '';
 
-        curl_setopt($cURL, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt ($cURL, CURLOPT_RETURNTRANSFER, 1);
-
-        $response = curl_exec($cURL);
-
-        $data = json_decode($response);        
- 
-        curl_close($cURL);
-
-        return $data;
-
+    function __construct($client_key, $client_secret){
+      $this->client_key = $client_key;
+      $this->client_secret = $client_secret;
     }
 
+    # Obtaining an access token
+    # https://github.com/klaseko/ps-client#obtaining-an-access-token
+    private function getAccessTokens(){
+      $headers = array(
+        'Content-Type: application/json',
+        'Accept: application/json',
+        'Client-Key: ' . $this->client_key,
+        'Client-Secret: ' . $this->client_secret,
+        'Redirect-URI: https://klaseko.com'
+      );
 
-    public function getClientKeys(){
-       return $this->doAuthenticate();
+      $curl = curl_init();
+      curl_setopt($curl, CURLOPT_URL, 'https://pay-dev.klaseko.com/oauth2/token');
+      curl_setopt($curl, CURLOPT_HTTPGET, true);
+      curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+      curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+      $response = curl_exec($curl);
+
+      return $response;
     }
-    
-    public function doHash($data){
-       $hashed_data = hash('sha256',$data);
-       $bcrypted_data = password_hash($hashed_data, PASSWORD_BCRYPT);
-       return $bcrypted_data;
+
+    public function getTransactionToken($inbound_parameters = []){
+      # Get the access_token
+      $tokens = json_decode($this->getAccessTokens());
+
+      # Build the request
+      $curl = curl_init();
+      curl_setopt_array($curl, array(
+        CURLOPT_URL             => 'https://pay-dev.klaseko.com/payment',
+        CURLOPT_POST            => true,
+        CURLOPT_VERBOSE         => true,
+        CURLOPT_RETURNTRANSFER  => true,
+        CURLOPT_POSTFIELDS      => $inbound_parameters,
+        CURLOPT_HTTPHEADER      => array(
+          "Content-Type: application/json",
+          "Authorization: Bearer $tokens->access_token",
+          "Client-Key: $this->client_key"
+        )
+      ));
+
+      # Execute the request and get response
+      $response = json_decode(curl_exec($curl));
+      curl_close($curl);
+
+      return $response->transaction_token;
     }
-    
-    public  function doPost($data,$token_auth){
-       $cURL = curl_init();
-       curl_setopt($cURL, CURLOPT_URL, 'https://pay-test.klaseko.com/payment');
-       //curl_setopt($cURL, CURLOPT_HTTPGET, true);
-       curl_setopt($cURL, CURLOPT_CUSTOMREQUEST, 'POST');
-       curl_setopt($cURL, CURLOPT_POSTFIELDS, $data);
-       $headers = array();
-       $headers[] = "Content-Type: application/json";
-       $headers[] = "Authorization: Bearer ".$token_auth."";
-       $headers[] = "Client-Key: ".$this->client_key."";
-      
-       curl_setopt($cURL, CURLOPT_HTTPHEADER, $headers);
-       curl_setopt($cURL, CURLOPT_RETURNTRANSFER, 1);
-     
-       $response = curl_exec($cURL);
-       $data = json_decode($response);
-         
-       curl_close($cURL);
-  
-       return $data;
+
+    # Helpers functions
+    public function getRefno($length = 6) {
+      $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      $charactersLength = strlen($characters);
+      $refno = '';
+      for ($i = 0; $i < $length; $i++) {
+        $refno .= $characters[rand(0, $charactersLength - 1)];
+      }
+      return $refno;
     }
- }
+  }
 ?>
