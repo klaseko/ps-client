@@ -163,6 +163,7 @@ The signature is a mechanism which will ensure the authenticity of each request.
 
 Algorithm:
 ```ruby
+# Ruby
 transaction_string = title + email + currency + total + description + ref_no + email + mobile_no + client_tracking_id + client_secret
 # => "EnrollmentPHP4510.50New payment from customer@client.comH56uBxcustomer@client.com09123456891231131-A-231f17bac0022c920497604033bb97aa09477"
 transaction_hash = Digest::SHA2.new(256)
@@ -170,6 +171,18 @@ transaction_hash << transaction_string
 # => #<Digest::SHA2:256 688e43af5be1b9ac050d871590b19b25c668aa9ff8e5d3eafd3b070e172d5911>
 signature = BCrypt::Password.create(transaction_hash)
 # => "$2a$10$1ethNPkv7zs9qtwCTdofyeAtMpqXqo9sgPF3/Ok4yBV4d/J3duu9a"
+@payload[:signature] = signature
+```
+
+```php
+# PHP
+$signature_string     = $payload['title'] . $payload['email'] . $payload['currency'] . $payload['total'] . $payload['description'] . $payload['ref_no'] . $payload['email'] . $payload['mobile_no'] . $payload['client_tracking_id'] . $client->client_secret;
+# => "EnrollmentPHP4510.50New payment from customer@client.comH56uBxcustomer@client.com09123456891231131-A-231f17bac0022c920497604033bb97aa09477"
+$hashed_string        = hash('sha256', $signature_string);
+# => "688e43af5be1b9ac050d871590b19b25c668aa9ff8e5d3eafd3b070e172d5911"
+$crypted_signature    = password_hash($hashed_string, PASSWORD_BCRYPT);
+# => "$2y$10$1ethNPkv7zs9qtwCTdofyeAtMpqXqo9sgPF3/Ok4yBV4d/J3duu9a"
+$payload['signature'] = $crypted_signature;
 ```
 
 > You must *strictly* follow the prescribed order for the SHA2 string.
@@ -179,7 +192,13 @@ signature = BCrypt::Password.create(transaction_hash)
 
 
 ### 2. Redirect user to payment page
-Once the inbound parameters are validated by PS, a transaction token will be returned. The token must be used as the parameter upon user redirect to the following url:
+Once the inbound parameters are validated by PS, a transaction token will be returned.
+```json
+{
+  "transaction_token": "qMM0m7wMjpJVM-9EFWYHRB1ZKkE"
+}
+```
+The token must be used as the parameter upon user redirect to the following url:
 
 `https://pay.klaseko.com/payment?t=<transaction_token>`
 
@@ -200,9 +219,16 @@ The PS processes the payment transaction and communicates with the 3rd party pay
 
 
 ### 4: Postback (only for pending payments)
-Postbacks are triggered by the PS for transactions with a Pending status. PS calls the supplied postback url with specific parameters.
+Postbacks are triggered by the PS for transactions with a Pending status. PS `POST`s to the supplied postback url with specific parameters.
 
-`POST https://client.com/postback?ref_no=<ref_no>&token=<token>&status=<status_code>`
+```
+curl -v https://client.com/postback \
+-d '{
+  "ref_no": "XMHXGD",
+  "token": "qMM0m7wMjpJVM-9EFWYHRB1ZKkE",
+  "status": "PAID"
+}'
+```
 
 
 #### Status Codes
