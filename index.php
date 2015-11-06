@@ -40,7 +40,7 @@
           </div>
           <div class="row">
             <div class='col-xs-6'>
-              Item: <input class="form-control" type="text" name="items[1][name]">
+              Name: <input class="form-control" type="text" name="items[1][name]">
             </div>
             <div class='col-xs-6'>
               Price: <input class="form-control" type="text" name="items[1][price]">
