@@ -1,8 +1,9 @@
 <?php
-  class ClientAPI {
+  class Client {
 
-    public $client_key = '';
-    public $client_secret = '';
+    public $payment_switch_url = "http://localhost:3003";
+    public $client_key = "";
+    public $client_secret = "";
 
     function __construct($client_key, $client_secret){
       $this->client_key = $client_key;
@@ -11,50 +12,101 @@
 
     # Obtaining an access token
     # https://github.com/klaseko/ps-client#obtaining-an-access-token
-    private function getAccessTokens(){
-      $headers = array(
-        'Content-Type: application/json',
-        'Accept: application/json',
-        'Client-Key: ' . $this->client_key,
-        'Client-Secret: ' . $this->client_secret,
-        'Redirect-URI: https://klaseko.com'
-      );
-
+    public function getAccessTokens(){
+      # Build the request
       $curl = curl_init();
-      curl_setopt($curl, CURLOPT_URL, 'https://pay-dev.klaseko.com/oauth2/token');
-      curl_setopt($curl, CURLOPT_HTTPGET, true);
-      curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-      curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt_array($curl, array(
+        CURLOPT_URL             => $this->payment_switch_url . '/oauth2/token',
+        CURLOPT_HTTPGET         => true,
+        CURLOPT_VERBOSE         => true,
+        CURLOPT_RETURNTRANSFER  => true,
+        CURLOPT_HTTPHEADER      => array(
+          'Content-Type: application/json',
+          'Accept: application/json',
+          'Client-Key: ' . $this->client_key,
+          'Client-Secret: ' . $this->client_secret,
+          'Redirect-URI: https://klaseko.com'
+        )
+      ));
 
+      # Execute the request
       $response = curl_exec($curl);
+
+      # Capture error
+      $err = curl_error($curl);
+
+      # Close connection
+      curl_close($curl);
+
+      if (!empty($err)) {
+        die("Could not get access token. Error: " . $err);
+      }
 
       return $response;
     }
 
-    public function getTransactionToken($inbound_parameters = []){
-      # Get the access_token
-      $tokens = json_decode($this->getAccessTokens());
-
+    # Retrieving trasnaction_token
+    public function getTransactionToken($inbound_parameters, $access_token){
       # Build the request
       $curl = curl_init();
       curl_setopt_array($curl, array(
-        CURLOPT_URL             => 'https://pay-dev.klaseko.com/payment',
+        CURLOPT_URL             => $this->payment_switch_url . '/payment',
         CURLOPT_POST            => true,
         CURLOPT_VERBOSE         => true,
         CURLOPT_RETURNTRANSFER  => true,
         CURLOPT_POSTFIELDS      => $inbound_parameters,
         CURLOPT_HTTPHEADER      => array(
           "Content-Type: application/json",
-          "Authorization: Bearer $tokens->access_token",
-          "Client-Key: $this->client_key"
+          "Authorization: Bearer " . $access_token,
+          "Client-Key: " . $this->client_key
         )
       ));
 
-      # Execute the request and get response
-      $response = json_decode(curl_exec($curl));
+      # Execute the request
+      $response = curl_exec($curl);
+
+      # Capture error
+      $err = curl_error($curl);
+
+      # Close connection
       curl_close($curl);
 
-      return $response->transaction_token;
+      if (!empty($err)) {
+        die("Could not get transaction token. Error: " . $err);
+      }
+
+      return $response;
+    }
+
+    # Retrieving transaction record
+    public function getTransactionRecord($transaction_token, $access_token) {
+      $curl = curl_init();
+      curl_setopt_array($curl, array(
+        CURLOPT_URL             => $this->payment_switch_url . "/transaction/" . $transaction_token . "?include=payment_records,logs",
+        CURLOPT_HTTPGET         => true,
+        CURLOPT_VERBOSE         => true,
+        CURLOPT_RETURNTRANSFER  => true,
+        CURLOPT_HTTPHEADER      => array(
+          "Content-Type: application/json",
+          "Authorization: Bearer $access_token",
+          "Client-Key: $this->client_key"
+        ),
+      ));
+
+      # Execute the request
+      $response = curl_exec($curl);
+
+      # Capture error
+      $err = curl_error($curl);
+
+      # Close connection
+      curl_close($curl);
+
+      if (!empty($err)) {
+        die("Could not get transaction record. Error: " . $err);
+      }
+
+      return $response;
     }
 
     # Helpers functions
