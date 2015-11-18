@@ -77,7 +77,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.client_key = ENV['PS_CLIENT_KEY']
-  config.client_secret = ENV['PS_CLIENT_SECRET']
-  config.ps_url = ENV['PS_URL']
+  config.client_key = 'a8be7a221a4c71d3d3d13ce8fcfc5e4d793f642c2965ba84'#ENV['PS_CLIENT_KEY']
+  config.client_secret = 'efaf8b8289ce8632a58fbc24dba03578b1783b97cde72da2'#ENV['PS_CLIENT_SECRET']
+  config.ps_url = 'https://pay.klaseko.com'
 end
