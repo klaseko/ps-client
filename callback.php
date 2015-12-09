@@ -3,7 +3,7 @@
 
   # Obtaining a client key and client secret
   # Contact Klaseko to get client_key and client_secret
-  $client = new Client('08be42f1d6c7e24a4f305ee82632a6d429fb811cb9ed2a7f', '8f9cf1382f9abf79775723dc81706198c4fd7f262fe8282b');
+  $client = new Client('a74f5911d41465783132d253071bb7d9e3643cae9602dc14', '41dc1a371688b72594b7bf980981edcc03641896d19b7f38');
 
   $tokens  = json_decode($client->getAccessTokens());
 

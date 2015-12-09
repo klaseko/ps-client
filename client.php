@@ -1,7 +1,7 @@
 <?php
   class Client {
 
-    public $payment_switch_url = "http://localhost:3003";
+    public $payment_switch_url = "https://pay-dev.klaseko.com";
     public $client_key = "";
     public $client_secret = "";
 
