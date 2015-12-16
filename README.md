@@ -298,85 +298,28 @@ Example:
 
 The payment switch will return a JSON object:
 
-```json
-{
-  "total": "4850.0",
-  "description": "New payment from customer@client.com",
-  "currecny": "PHP",
-  "status": "PAID",
-  "ref_no": "X1J5WS",
-  "token": "876vLY5VLyLTR6RRjKfluNluK0g",
-  "amount_paid": "4850.0",
-  "title": "ENROLLMENT",
-  "items": [
-    {
-      "name": "Tuition Fee",
-      "price": "4500.0"
-    }
-  ],
-  "email": "customer@client.com",
-  "info": [
-    {
-      "title": "Customer Name",
-      "value": "Gerard Cruz"
-    },
-    {
-      "title": "Program",
-      "value": "Computer Science"
-    }
-  ],
-  "mobile_no": "09101234567",
-  "subtotal": "4500.0",
-  "client_tracking_id": "H3nYgGCrlCsO",
-  "gateway_tracking_ids": {
-    "dragonpay": "L4RG8VM0"
-  },
-  "fees": [
-    {
-      "name": "Access Fee (Klaseko)",
-      "price": 350
-    }
-  ],
-  "mode": "ONLINE_BANK",
-  "logs": [
-    {
-      "id": 440,
-      "transaction_record_id": 114,
-      "status": "RECEIVE_HTTP_POST",
-      "details": "Client IP: 127.0.0.1\nClient User-Agent: Faraday v0.9.1\nHTTP request: POST\n",
-      "created_at": "2015-11-17T05:20:31.006Z",
-      "updated_at": "2015-11-17T05:20:31.006Z"
-    },
-    {
-      "id": 451,
-      "transaction_record_id": 114,
-      "status": "RECEIVE_HTTP_GET",
-      "details": "Client IP: 127.0.0.1\nClient User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36\nHTTP request: GET\n",
-      "created_at": "2015-11-17T05:25:27.649Z",
-      "updated_at": "2015-11-17T05:25:27.649Z"
-    }
-  ],
-  "payment_records": [
-    {
-      "id": 101,
-      "transaction_record_id": 114,
-      "amount_paid": "350.0",
-      "payment_method": "DRAGONPAY",
-      "status": "SPLIT",
-      "tracking_id": "X1J5WS",
-      "created_at": "2015-11-17T05:21:26.916Z",
-      "updated_at": "2015-11-17T05:21:26.916Z"
-    },
-    {
-      "id": 102,
-      "transaction_record_id": 114,
-      "amount_paid": "4500.0",
-      "payment_method": "DRAGONPAY",
-      "status": "SPLIT",
-      "tracking_id": "X1J5WS",
-      "created_at": "2015-11-17T05:21:26.976Z",
-      "updated_at": "2015-11-17T05:21:26.976Z"
-    }
-  ]
-}
-```
+Key                  | Type   | Description
+---------------------|--------|---------------
+title                | string | Title of the transaction
+description          | string | Description of the transaction
+email                | string | Email address used for the transaction
+mobile_no            | string | Mobile number used for the transaction
+info                 | array  | An array containing basic information of the transaction. Structured as `[{"title" => "Student", "value" => "Francis Borbe"}, {"title" => "Program", "value" => "Computer Science"}]`
+ref_no               | string | Referrence number of the transaction. Can be used to find the transaction in the backoffice
+token                | string | Transaction token. Used for processing the transaction
+status               | string | Status of the transaction. Values could be `'NEW', 'PENDING', 'PAID', 'EXPIRED', 'FAILED', 'CANCELLED'`
+client_tracking_id   | string | Contains the id used by client (schools) to track who is paying for the transaction. This could be a student id for example.
+currency             | string | Currency used for the trasnaction. e.g. `PHP, USD`
+items                | array  | An array containing the line items with prices of the transcation. Structured as `[{"name" => "Tuition Fee", "price" => 5000}, {"name" => "Misc. Fee", "price" => 500}]`
+fees                 | array  | An array containing the fees charged by Klaseko. Structured as `[{"name" => "Access Fee (Klaseko)", "price" => 100}]`
+subtotal             | double | The total of all the transaction items (stored in the items field)
+tax                  | double | Tax based on the subtotal. Tax is 0 for non-taxable clients
+computed_gateway_fee | double | The amount charged by the chosen payment gateway (e.g. PayPal, Dragonpay, etc.)
+total                | double | Total amount that the customer will pay. This includes the `subtotal, tax, computed_gateway_fee and Klaseko fees.`
+amount_paid          | double | Amount that the customer actually paid.
+mode                 | string | Payment pethod chosen by the customer. Possible values: `'CREDIT', 'DEBIT', 'ONLINE_BANK', 'OTC_BANK' (over the counter bank), 'OTC_NONBANK' (over the counter non-banks), 'MOBILE'`
+gateway_tracking_ids | object | The tracking ID returned by the chosen payment gateway. This can be used to track the payment made in the payment gateway. e.g. `[{"paypal" => "AP-9Y090333P6386951A"}, "dragonpay" => "VWWMD8"]`
+bank_name            | string | Name of the bank where the customer process the payment. For paypal transaction, the value of this is `'PayPal'`
+date_settled         | string | The date the transaction was `'PAID'`
+payment_records      | array  | An array containing the records of payments made
+logs                 | array  | An array containing the activities made on the transaction
