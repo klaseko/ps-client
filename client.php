@@ -31,6 +31,7 @@
 
       # Execute the request
       $response = curl_exec($curl);
+      error_log("response:" . $response);
 
       # Capture error
       $err = curl_error($curl);
@@ -64,6 +65,7 @@
 
       # Execute the request
       $response = curl_exec($curl);
+      error_log("response:" . $response);
 
       # Capture error
       $err = curl_error($curl);
@@ -95,6 +97,7 @@
 
       # Execute the request
       $response = curl_exec($curl);
+      error_log("response:" . $response);
 
       # Capture error
       $err = curl_error($curl);

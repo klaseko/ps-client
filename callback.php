@@ -20,5 +20,6 @@
   #
   # get transaction details from the payment switch
   $transaction = $client->getTransactionRecord($transaction_token, $tokens->access_token);
+  error_log("response:" . $transaction);
 
   die(var_dump(json_decode($transaction)));

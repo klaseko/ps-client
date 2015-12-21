@@ -31,6 +31,7 @@
   $payload['signature'] = $crypted_signature;
 
   $response = $client->getTransactionToken(json_encode($payload), $tokens->access_token);
+  error_log("response:" . $response);
 
   $redirect_url = $client->payment_switch_url . "/payment?t=" . json_decode($response)->transaction_token;
   header("Location: $redirect_url");
