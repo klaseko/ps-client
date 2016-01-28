@@ -7,6 +7,10 @@
 # Change Log
 Documentation of the changes made on each releases on the payment switch.
 
+## [v1.3.1] - 2015-Jan-28
+### Changes
+- /transaction/:token now returns 404 if transaction is not found
+
 ## [v1.3.0] - 2015-Jan-27
 ### Added
 - include date settled in return info
