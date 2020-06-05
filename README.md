@@ -5,12 +5,12 @@
 ### Payment Switch API Environments
 The Klaseko Payment Switch has two (2) environments `staging` and `production`.
 The following endpoints address our two environments:
-* **Staging** (for testing): `https://pay-test.klaseko.com`
-* **Production** (live transactions): `https://pay.klaseko.com`
+* **Staging** (for testing): `https://pay-test.allpayinc.com`
+* **Production** (live transactions): `https://pay.allpayinc.com`
 
 The client must make an HTTP request with the corresponding HTTP method (or "verb") to the endpoint that the client needs. For example, this is what a new payment operation will look like:
 
-`POST https://pay.klaseko.com/payment`
+`POST https://pay.allpayinc.com/payment`
 
 For the request to be complete, make sure the client has the appropriate HTTP headers and a valid JSON payload.
 
@@ -35,7 +35,7 @@ Access tokens are credentials used to access protected resources.  An access tok
 
 To obtain an access token, the client must make a request to the token endpoint
 
-`GET https://pay.klaseko.com/oauth2/token`
+`GET https://pay.allpayinc.com/oauth2/token`
 
 with the following headers:
 
@@ -52,7 +52,7 @@ public function getAccessTokens(){
   # Build the request
   $curl = curl_init();
   curl_setopt_array($curl, array(
-    CURLOPT_URL             => 'https://pay.klaseko.com/oauth2/token',
+    CURLOPT_URL             => 'https://pay.allpayinc.com/oauth2/token',
     CURLOPT_HTTPGET         => true,
     CURLOPT_RETURNTRANSFER  => true,
     CURLOPT_HTTPHEADER      => array(
@@ -100,7 +100,7 @@ Parameter       | Type   | Description
 #### Refreshing an expired `access_token`
 Access tokens expire in 10 minutes. To obtain a new access token, the client must make a request to the token endpoint
 
-`GET https://pay.klaseko.com/oauth2/token`
+`GET https://pay.allpayinc.com/oauth2/token`
 
 with the following headers:
 
@@ -114,7 +114,7 @@ Header          | Value
 ### Create a Payment
 To initiate payment, submit a POST request to the PS containing the inbound parameters to:
 
-`POST https://pay.klaseko.com/payment`
+`POST https://pay.allpayinc.com/payment`
 
 
 ### 1. Send Inbound Parameters
@@ -200,7 +200,7 @@ public function getTransactionToken($inbound_parameters, $access_token){
   # Build the request
   $curl = curl_init();
   curl_setopt_array($curl, array(
-    CURLOPT_URL             => 'https://pay.klaseko.com/payment',
+    CURLOPT_URL             => 'https://pay.allpayinc.com/payment',
     CURLOPT_POST            => true,
     CURLOPT_RETURNTRANSFER  => true,
     CURLOPT_POSTFIELDS      => $inbound_parameters,
@@ -237,7 +237,7 @@ Once the inbound parameters are validated by PS, a transaction token will be ret
 ```
 The token must be used as the parameter upon user redirect to the following url:
 
-`https://pay.klaseko.com/payment?t=<transaction_token>`
+`https://pay.allpayinc.com/payment?t=<transaction_token>`
 
 The page will display the transaction summary and will allow the user to choose a payment method.
 
@@ -286,7 +286,7 @@ GET 'http://client.com/callback.php?ref_no=<ref_no>&token=<token>&signature=<sig
 ### Retrieving Transaction Record
 Send a GET request to `/transaction/<transaction_token>`
 
-`GET https://pay.klaseko.com/transaction/<transaction_token>`
+`GET https://pay.allpayinc.com/transaction/<transaction_token>`
 
 with the following headers:
 
@@ -300,7 +300,7 @@ You can add an `include` parameter which accepts `payment_records` and/or `logs`
 
 Example:
 
-`GET https://pay.klaseko.com/transaction/876vLY5VLyLTR6RRjKfluNluK0g?include=payment_records,logs`
+`GET https://pay.allpayinc.com/transaction/876vLY5VLyLTR6RRjKfluNluK0g?include=payment_records,logs`
 
 The payment switch will return a JSON object:
 
